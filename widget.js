@@ -50,7 +50,7 @@ WAF.define('wCombobox', ['waf-core/widget'], function (widget) {
         main : function () {
             var self = this, isRelated, dc, re, relatedDC, kind,
                 id = self.items.attributeFor('id'),
-                val = self._bindedAttributes.value;
+                val = self.value.boundDatasource();
 
             if (val) {
                 dc = val.datasource.getID();
@@ -73,7 +73,7 @@ WAF.define('wCombobox', ['waf-core/widget'], function (widget) {
 
             // If the collection of the datasource items change, 
             // the elements in the DropDownMenu change accordingly.
-            this.items.onCollectionChange(function (elements) {
+            this.items.onPageChange(function (elements) {
 
                 // Check to see if there is any element on the new collection
                 if (!elements.length) {
@@ -98,7 +98,7 @@ WAF.define('wCombobox', ['waf-core/widget'], function (widget) {
             // 2. the value of the related attribute "employee1.company" is changed too.
             if (isRelated) {
                 if (this.items()) {
-                    this.items().subscribe('currentElementChange', function (event) {
+                    this.items.subscribe('currentElementChange', function (event) {
 
                         var currentEntity = event.data.dataSource.getCurrentElement();
                         if (currentEntity) {
@@ -194,11 +194,11 @@ WAF.define('wCombobox', ['waf-core/widget'], function (widget) {
             // the selected item is copied to the attribute value of the datasource value.            
             function onSelectNodeSimple(e) {
                 var bindedValue = self._bindedAttributes.value;
-                if (bindedValue) {
-                    bindedValue.datasource[bindedValue.attribute] = e.val;
+                if (val) {
+                    val.datasource[val.attribute] = e.val;
                     
                     if (self.autoSave()) {
-                        bindedValue.datasource.save();
+                        val.datasource.save();
                     }
                 } else {
                     self.value(e.val);
