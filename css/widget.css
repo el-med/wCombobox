@@ -4,11 +4,3 @@
 .waf-designer-wcombobox .select2-choice{
 	height: 100%;
 }
-.waf-designer-wcombobox .selectableInStudio {
-	width:100%;
-	height:100%;
-	z-index: 999;
-	position:inherit;
-	top:0px;
-	left:0px;
-}
